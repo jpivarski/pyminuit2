@@ -8,7 +8,7 @@ First you need to [http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minui
 {{{
 wget http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minuit2.tar.gz
 tar xzf Minuit2.tar.gz
-cd Minuit2-5.18
+cd Minuit2-5.18.00
 }}}
 configure with the configure script. See ./configure --help for more options. 
 
