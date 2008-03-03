@@ -1,4 +1,5 @@
 #summary How to install PyMinuit2
+#labels Featured,Phase-Deploy
 
 = Introduction =
 Minuit has become the default minimization package in High Energy Physics. In its latest incarnation, it is called [http://project-mathlibs.web.cern.ch/project-mathlibs/sw/html/Minuit2.html Minuit2] and being maintained by the ROOT development team, but available independently of it.
