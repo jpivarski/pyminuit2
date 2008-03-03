@@ -4,9 +4,10 @@
 Minuit has become the default minimization package in High Energy Physics. In its latest incarnation, it is maintained by the ROOT development team, but available independently of it.
 
 = Install Minuit2 =
-First you need to [http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minuit2.tar.gz download the latest sources of Minuit2].
-Change into the Minuit2-<RELEASE> directory, e.g.
+First you need to [http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minuit2.tar.gz download the latest sources of Minuit2], extract the source and change into the Minuit2-<RELEASE> directory, e.g.
 {{{
+wget http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minuit2.tar.gz
+tar xzf Minuit2.tar.gz
 cd Minuit2-5.18
 }}}
 configure with the configure script. See ./configure --help for more options. 
