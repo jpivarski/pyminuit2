@@ -4,16 +4,10 @@
 Minuit has become the default minimization package in High Energy Physics. In its latest incarnation, it is maintained by the ROOT development team, but available independently of it.
 
 = Install Minuit2 =
-First you need to checkout the latest sources of Minuit2. Unfortunately, there is some dependence on other ROOT libraries.
+First you need to [http://project-mathlibs.web.cern.ch/project-mathlibs/sw/Minuit2.tar.gz download the latest sources of Minuit2].
+Change into the Minuit2-<RELEASE> directory, e.g.
 {{{
-svn co https://root.cern.ch/svn/root/trunk/mathcore mathcore
-svn co https://root.cern.ch/svn/root/trunk/minuit2 minuit2
-}}}
-
-Minuit2 comes with a script that lets it build independently from the rest of ROOT:
-{{{
-cd minuit2
-build/setup.sh
+cd Minuit2-5.18
 }}}
 configure with the configure script. See ./configure --help for more options. 
 
