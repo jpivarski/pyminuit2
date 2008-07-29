@@ -425,6 +425,9 @@ bool minuit_prepare(minuit_Minuit *self, int &maxcalls, std::vector<std::string>
 	 self->upar->RemoveLimits(i);
 	 self->upar->SetLowerLimit(i, PyFloat_AsDouble(PyTuple_GetItem(limit, 0)));
 	 self->upar->SetUpperLimit(i, PyFloat_AsDouble(PyTuple_GetItem(limit, 1)));
+         self->upar->SetLimits(i,
+                               PyFloat_AsDouble(PyTuple_GetItem(limit, 0)),
+                               PyFloat_AsDouble(PyTuple_GetItem(limit, 1)));
       }
       else {
 	 PyErr_Format(PyExc_TypeError, "limits[\"%s\"] must be None or (low, high).", self->upar->Name(i));
