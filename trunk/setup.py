@@ -22,6 +22,7 @@ setup(name="pyMinuit2",
       ext_modules=[Extension(os.path.join("minuit2"),
                              [os.path.join("minuit2.cpp")],
                              library_dirs=[libdir],
-                             libraries=["Core","Cint","RIO","Net","Hist","Graf","Rint","Matrix","Minuit2"],
+                             
+libraries=["Core","Cint","RIO","Net","Hist","Graf","Rint","Matrix","MathCore","Minuit2"],
                              include_dirs=[incdir]
                              )])
