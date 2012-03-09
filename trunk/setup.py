@@ -13,8 +13,8 @@ def root_config(*opts):
 def find_library(lib):
     from distutils import ccompiler
     libdirs = ['/usr/lib', '/usr/local/lib']
-    libdirs += os.environ.get('DYLD_LIBRARY_PATH', [])
-    libdirs += os.environ.get('LD_LIBRARY_PATH', [])
+    libdirs += os.environ.get('DYLD_LIBRARY_PATH', '').split(':')
+    libdirs += os.environ.get('LD_LIBRARY_PATH', '').split(':')
     cc = ccompiler.new_compiler()
     return cc.find_library_file(libdirs, lib) 
 
@@ -22,17 +22,21 @@ libs = ["Minuit2"]
 libdirs = []
 incdirs = []
 
-if find_library('minuit2'):
-    print "Linking against standalone Minuit2 library"
+minuit2_standalone = find_library('Minuit2')
+if minuit2_standalone:
+    print("Linking against standalone Minuit2 library")
+    dirname = os.path.dirname(minuit2_standalone)
+    libdirs += [dirname]
+    incdirs += [os.path.join(os.path.split(dirname)[0],'include')]
 else:
     try:
         version, incdir, libdir = root_config('version', 'incdir', 'libdir')
         incdirs.append(incdir)
         libdirs.append(libdir)
         libs += ["Core","Cint","RIO","Net","Hist","Graf","Rint","Matrix","MathCore"]
-        print "Linking against Minuit2 library from ROOT %s" % version
+        print("Linking against Minuit2 library from ROOT %s" % version)
     except OSError:
-        print "Neither the standalone Minuit2 library nor root-config could be found."
+        print("Neither the standalone Minuit2 library nor root-config could be found.")
         sys.exit(1)
     
 setup(name="pyMinuit2",

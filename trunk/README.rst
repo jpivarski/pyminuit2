@@ -79,6 +79,20 @@ A function in Python can be defined using the def keyword or inline as a lambda 
 but the second can be embedded in the Minuit object's constructor::
 	m = Minuit(lambda x, y: x**2 + y**2)
 
+You can also supply a class member function::
+	class Paraboloid(object):
+		def __init__(self, xmin, ymin):
+			self.xmin = xmin
+			self.ymin = ymin
+
+		def eval(self, x, y):
+			return (x - self.xmin)**2 + (y - self.ymin)**2
+	p = Paraboloid(6,3)
+	m = Minuit(p.eval)
+	m.migrad()
+	m.values['x'],m.values['y'],m.fval
+	>>>6.000000,3.000000,0.000000
+
 See FunctionReference for a warning about integer division.
 
 Helping the minimization by setting initial values

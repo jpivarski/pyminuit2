@@ -26,6 +26,7 @@
 #include "Minuit2/MnUserParameters.h"
 #include "Minuit2/MnUserParameterState.h"
 #include "Minuit2/MinuitParameter.h"
+#include "Minuit2/MnSimplex.h"
 #include "Minuit2/MnMigrad.h"
 #include "Minuit2/FunctionMinimum.h"
 #include "Minuit2/MnHesse.h"
@@ -48,16 +49,17 @@ class ExceptionDuringMinimization {
 
 class MyFCN: public FCNBase {
    public:
-      MyFCN(PyObject *fcn, int npar): m_fcn(fcn), m_npar(npar) { };
+      MyFCN(PyObject *fcn, PyObject *self, int npar): m_fcn(fcn), m_self(self), m_npar(npar) { };
       double operator()(const std::vector<double>& par) const;
 
       double Up() const { return m_up; }
-      void setUp(double up) { m_up = up; }
-      void setPrintMode(int printMode) { m_printMode = printMode; }
-      void setOriginal(std::vector<double> par) { m_original = par; }
+      void SetUp(double up) { m_up = up; }
+      void SetPrintMode(int printMode) { m_printMode = printMode; }
+      void SetOriginal(std::vector<double> par) { m_original = par; }
       
    private:
       PyObject *m_fcn;
+      PyObject *m_self;
       int m_npar;
       double m_up;
       int m_printMode;
@@ -81,11 +83,13 @@ typedef struct {
       PyObject *fixed;
       PyObject *limits;
       PyObject *values;
+      PyObject *args;
       PyObject *errors;
       PyObject *merrors;
       PyObject *covariance;
 
       PyObject *fcn;
+      PyObject *self;
       PyObject *fval;
       int ncalls;
       PyObject *edm;
@@ -95,6 +99,7 @@ typedef struct {
 static int minuit_Minuit_init(minuit_Minuit* self, PyObject* args, PyObject* kwds);
 static int minuit_Minuit_dealloc(minuit_Minuit* self);
 bool minuit_prepare(minuit_Minuit *self, int &maxcalls, std::vector<std::string> &floating);
+static PyObject* minuit_Minuit_simplex(minuit_Minuit* self);
 static PyObject* minuit_Minuit_migrad(minuit_Minuit* self);
 static PyObject* minuit_Minuit_hesse(minuit_Minuit* self);
 static PyObject* minuit_Minuit_minos(minuit_Minuit* self, PyObject* args);
