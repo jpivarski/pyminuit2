@@ -1,0 +1,31 @@
+March 9, 2012 Jakob van Santen (jvansanten@gmail.com)
+--------------------------------------------------------------------
+Release 1.1.0
+
+This release adds more convenient ways to get arguments and data into
+functions being minimized.
+
+Features:
+- Python 3 support
+- Minimize against class methods
+- Pass arguments as a tuple
+- Expose MnSimplex
+  -- Robert Franke
+
+Bugfixes:
+- Build properly when $ROOTSYS/lib is in LD_LIBRARY_PATH
+  -- Jakob van Santen
+- Plug memory leaks
+  -- Robert Franke
+
+March 5, 2012 Jakob van Santen (jvansanten@gmail.com)
+--------------------------------------------------------------------
+Release 1.0.0
+
+This pseudo-1.0 release fixes up the build system so that the package
+can be usefully distributed via the Python Package Index.
+
+Features:
+- Conditionalize ROOT depedency, preferring standalone Minuit2
+- Package for PyPI
+
