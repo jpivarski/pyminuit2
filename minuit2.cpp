@@ -255,7 +255,7 @@ static int minuit_Minuit_init(minuit_Minuit *self, PyObject *args, PyObject *kwd
     Py_DECREF(self->args);
     self->args = PyTuple_New(self->npar);
 
-    for (int i = 0;  i < self->npar;  i++) {
+    for (Py_ssize_t i = 0;  i < self->npar;  i++) {
       PyObject *param = PyTuple_GetItem(self->parameters, i);
       if (!PyString_Check(param)) {
 	 PyErr_SetString(PyExc_RuntimeError, "function.func_code.co_varnames must be a tuple of strings.");
@@ -1474,7 +1474,7 @@ static PyObject* minuit_Minuit_matrix(minuit_Minuit* self, PyObject* args, PyObj
 }
 
 double MyFCN::operator()(const std::vector<double>& par) const {
-    int argsize = m_npar;
+    Py_ssize_t argsize = m_npar;
     if (m_self){
         ++argsize;
     }

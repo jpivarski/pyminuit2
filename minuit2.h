@@ -49,7 +49,7 @@ class ExceptionDuringMinimization {
 
 class MyFCN: public FCNBase {
    public:
-      MyFCN(PyObject *fcn, PyObject *self, int npar): m_fcn(fcn), m_self(self), m_npar(npar) { };
+      MyFCN(PyObject *fcn, PyObject *self, Py_ssize_t npar): m_fcn(fcn), m_self(self), m_npar(npar) { };
       double operator()(const std::vector<double>& par) const;
 
       double Up() const { return m_up; }
@@ -60,7 +60,7 @@ class MyFCN: public FCNBase {
    private:
       PyObject *m_fcn;
       PyObject *m_self;
-      int m_npar;
+      Py_ssize_t m_npar;
       double m_up;
       int m_printMode;
       std::vector<double> m_original;
@@ -74,7 +74,7 @@ typedef struct {
       FunctionMinimum *min;
       int scandepth;
 
-      int npar;
+      Py_ssize_t npar;
       PyObject *maxcalls;
       double tol;
       int strategy;
