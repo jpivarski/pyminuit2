@@ -27,7 +27,7 @@ def is_secretly_root(lib):
     from distutils import ccompiler
     libdir = os.path.dirname(lib)
     cc = ccompiler.new_compiler()
-    for rootlib in ("Core","Cint","RIO","Net","Hist","Graf","Rint","Matrix","MathCore"):
+    for rootlib in ("Core","MathCore"):
         if not cc.find_library_file([libdir], rootlib):
             return False
         else:
@@ -52,17 +52,16 @@ else:
         version, incdir, libdir = root_config('version', 'incdir', 'libdir')
         incdirs.append(incdir)
         libdirs.append(libdir)
-        libs += ["Core","Cint","RIO","Net","Hist","Graf","Rint","Matrix","MathCore"]
         print("Linking against Minuit2 library from ROOT %s" % version)
     except OSError:
         raise RuntimeError("Neither the standalone Minuit2 library nor root-config could be found. Minuit2 can be obtained from your favorite package manager or from http://seal.web.cern.ch/seal/work-packages/mathlibs/minuit/release/download.html")
     
 setup(name="pyMinuit2",
-      version="1.1.0",
+      version="1.1.1",
       description="pyMinuit2: Minuit2 interface for minimizing Python functions",
       author="Johann Cohen-Tanugi",
       author_email="johann.cohentanugi@gmail.com",
-      url="http://code.google.com/p/pyminuit2/",
+      url="https://github.com/jpivarski/pyminuit2",
       classifiers=['Intended Audience :: Science/Research',
                    'Topic :: Scientific/Engineering :: Mathematics',
                    'License :: OSI Approved :: GNU General Public License (GPL)',
