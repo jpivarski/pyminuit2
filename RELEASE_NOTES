@@ -1,3 +1,11 @@
+April 13, 2017 Jakob van Santen (jvansanten@gmail.com)
+--------------------------------------------------------------------
+Release 1.1.1
+
+This release exists to support Minuit2 distributed with ROOT 6. There will
+probably be no further development, and we continue to recommend iminuit for
+new projects (see the note in the README).
+
 March 9, 2012 Jakob van Santen (jvansanten@gmail.com)
 --------------------------------------------------------------------
 Release 1.1.0

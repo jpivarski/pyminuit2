@@ -64,36 +64,36 @@ ob = PyModule_Create(&moduledef);
 static PyObject *PyExc_MinuitError;
 
 static PyMemberDef minuit_Minuit_members[] = {
-   {"maxcalls", T_OBJECT, offsetof(minuit_Minuit, maxcalls), 0, "The maximum number of function calls before giving up on minimization."},
-   {"tol", T_DOUBLE, offsetof(minuit_Minuit, tol), 0, "Tolerance: minimization succeeds when the estimated vertical distance to the\nminimum is less than 0.001*tol*up."},
-   {"strategy", T_INT, offsetof(minuit_Minuit, strategy), 0, "Minimization strategy: 0 is fast, 1 is default, and 2 is thorough."},
-   {"up", T_DOUBLE, offsetof(minuit_Minuit, up), 0, "The vertical distance from the minimum that corresponds to one standard\ndeviation.  This is 1.0 for chi^2 and 0.5 for -log likelihood."},
-   {"printMode", T_INT, offsetof(minuit_Minuit, printMode), 0, "Call-by-call printouts: 0 shows nothing, 1 shows parameter values, 2 shows\ndifferences from the starting point, and 3 shows differences from the previous\nvalue."},
-   {"fixed", T_OBJECT, offsetof(minuit_Minuit, fixed), 0, "Dictionary of fixed parameters; maps parameter strings to True/False."},
-   {"limits", T_OBJECT, offsetof(minuit_Minuit, limits), 0, "Dictionary of domain limits; maps parameter strings to (low, high) or None for\nunconstrained fitting."},
-   {"values", T_OBJECT, offsetof(minuit_Minuit, values), 0, "Dictionary of parameter values or starting points."},
-    {"args", T_OBJECT, offsetof(minuit_Minuit, args), READONLY, "Tuple of parameters or starting points in the order of the objective function's argument list."},
-   {"errors", T_OBJECT, offsetof(minuit_Minuit, errors), 0, "Dictionary of parameter errors or starting step sizes."},
-   {"merrors", T_OBJECT, offsetof(minuit_Minuit, merrors), READONLY, "Dictionary of all MINOS errors that have been calculated so far."},
-   {"covariance", T_OBJECT, offsetof(minuit_Minuit, covariance), READONLY, "Covariance matrix as a dictionary; maps pairs of parameter strings to matrix\nelements."},
+   {(char*)"maxcalls", T_OBJECT, offsetof(minuit_Minuit, maxcalls), 0, (char*)"The maximum number of function calls before giving up on minimization."},
+   {(char*)"tol", T_DOUBLE, offsetof(minuit_Minuit, tol), 0, (char*)"Tolerance: minimization succeeds when the estimated vertical distance to the\nminimum is less than 0.001*tol*up."},
+   {(char*)"strategy", T_INT, offsetof(minuit_Minuit, strategy), 0, (char*)"Minimization strategy: 0 is fast, 1 is default, and 2 is thorough."},
+   {(char*)"up", T_DOUBLE, offsetof(minuit_Minuit, up), 0, (char*)"The vertical distance from the minimum that corresponds to one standard\ndeviation.  This is 1.0 for chi^2 and 0.5 for -log likelihood."},
+   {(char*)"printMode", T_INT, offsetof(minuit_Minuit, printMode), 0, (char*)"Call-by-call printouts: 0 shows nothing, 1 shows parameter values, 2 shows\ndifferences from the starting point, and 3 shows differences from the previous\nvalue."},
+   {(char*)"fixed", T_OBJECT, offsetof(minuit_Minuit, fixed), 0, (char*)"Dictionary of fixed parameters; maps parameter strings to True/False."},
+   {(char*)"limits", T_OBJECT, offsetof(minuit_Minuit, limits), 0, (char*)"Dictionary of domain limits; maps parameter strings to (low, high) or None for\nunconstrained fitting."},
+   {(char*)"values", T_OBJECT, offsetof(minuit_Minuit, values), 0, (char*)"Dictionary of parameter values or starting points."},
+   {(char*)"args", T_OBJECT, offsetof(minuit_Minuit, args), READONLY, (char*)"Tuple of parameters or starting points in the order of the objective function's argument list."},
+   {(char*)"errors", T_OBJECT, offsetof(minuit_Minuit, errors), 0, (char*)"Dictionary of parameter errors or starting step sizes."},
+   {(char*)"merrors", T_OBJECT, offsetof(minuit_Minuit, merrors), READONLY, (char*)"Dictionary of all MINOS errors that have been calculated so far."},
+   {(char*)"covariance", T_OBJECT, offsetof(minuit_Minuit, covariance), READONLY, (char*)"Covariance matrix as a dictionary; maps pairs of parameter strings to matrix\nelements."},
 
-   {"fcn", T_OBJECT, offsetof(minuit_Minuit, fcn), READONLY, "The objective function: must accept only numeric arguments and return a number."},
-   {"fval", T_OBJECT, offsetof(minuit_Minuit, fval), READONLY, "The current minimum value of the objective function."},
-   {"ncalls", T_INT, offsetof(minuit_Minuit, ncalls), READONLY, "The number of times the objective function has been called: also known as NFCN."},
-   {"edm", T_OBJECT, offsetof(minuit_Minuit, edm), READONLY, "The current estimated vertical distance to the minimum."},
-   {"parameters", T_OBJECT, offsetof(minuit_Minuit, parameters), READONLY, "A tuple of parameters, in the order of the objective function's argument list."},
+   {(char*)"fcn", T_OBJECT, offsetof(minuit_Minuit, fcn), READONLY, (char*)"The objective function: must accept only numeric arguments and return a number."},
+   {(char*)"fval", T_OBJECT, offsetof(minuit_Minuit, fval), READONLY, (char*)"The current minimum value of the objective function."},
+   {(char*)"ncalls", T_INT, offsetof(minuit_Minuit, ncalls), READONLY, (char*)"The number of times the objective function has been called: also known as NFCN."},
+   {(char*)"edm", T_OBJECT, offsetof(minuit_Minuit, edm), READONLY, (char*)"The current estimated vertical distance to the minimum."},
+   {(char*)"parameters", T_OBJECT, offsetof(minuit_Minuit, parameters), READONLY, (char*)"A tuple of parameters, in the order of the objective function's argument list."},
 
    {NULL}
 };
 
 static PyMethodDef minuit_Minuit_methods[] = {
-    {"migrad", (PyCFunction)(minuit_Minuit_migrad), METH_NOARGS, "Attempt to minimize the function with the MIGRAD algorithm (recommended).  No output if successful: see member values\nand errors."},
-    {"simplex", (PyCFunction)(minuit_Minuit_simplex), METH_NOARGS, "Attempt to minimize the function with the Simplex algorithm (not recommended).  No output if successful: see member values\nand errors."},
-   {"hesse", (PyCFunction)(minuit_Minuit_hesse), METH_NOARGS, "Measure the covariance matrix with the current values."},
-   {"minos", (PyCFunction)(minuit_Minuit_minos), METH_VARARGS, "Measure non-linear error bounds after minimization.  For all parameters, pass\nno arguments; for one parameter, pass parameter name and number of sigmas\n(negative for the other side)."},
-   {"contour", (PyCFunction)(minuit_Minuit_contour), METH_VARARGS | METH_KEYWORDS, "Measure a 2-dimensional contour line, given two parameter strings, a number of\nsigmas, and (optionally) a number of points."},
-   {"scan", (PyCFunction)(minuit_Minuit_scan), METH_VARARGS | METH_KEYWORDS, "Crudely minimize the function by scanning in N dimensions.  Arguments are\n(parameter, bins, low, high), ..., for all parameters of interest.  Keyword\narguments corners=True measures left edges, rather than centers of bins and\noutput=False suppresses the output tensor of measured values."},
-   {"matrix", (PyCFunction)(minuit_Minuit_matrix), METH_VARARGS | METH_KEYWORDS, "Express the covariance as a tuple-of-tuples matrix.  Optional correlation=True\ncalculates the (normalized) correlation matrix instead, and skip_fixed=True\nremoves fixed parameters (which have zeroed entries)."},
+    {(char*)"migrad", (PyCFunction)(minuit_Minuit_migrad), METH_NOARGS, (char*)"Attempt to minimize the function with the MIGRAD algorithm (recommended).  No output if successful: see member values\nand errors."},
+    {(char*)"simplex", (PyCFunction)(minuit_Minuit_simplex), METH_NOARGS, (char*)"Attempt to minimize the function with the Simplex algorithm (not recommended).  No output if successful: see member values\nand errors."},
+   {(char*)"hesse", (PyCFunction)(minuit_Minuit_hesse), METH_NOARGS, (char*)"Measure the covariance matrix with the current values."},
+   {(char*)"minos", (PyCFunction)(minuit_Minuit_minos), METH_VARARGS, (char*)"Measure non-linear error bounds after minimization.  For all parameters, pass\nno arguments; for one parameter, pass parameter name and number of sigmas\n(negative for the other side)."},
+   {(char*)"contour", (PyCFunction)(minuit_Minuit_contour), METH_VARARGS | METH_KEYWORDS, (char*)"Measure a 2-dimensional contour line, given two parameter strings, a number of\nsigmas, and (optionally) a number of points."},
+   {(char*)"scan", (PyCFunction)(minuit_Minuit_scan), METH_VARARGS | METH_KEYWORDS, (char*)"Crudely minimize the function by scanning in N dimensions.  Arguments are\n(parameter, bins, low, high), ..., for all parameters of interest.  Keyword\narguments corners=True measures left edges, rather than centers of bins and\noutput=False suppresses the output tensor of measured values."},
+   {(char*)"matrix", (PyCFunction)(minuit_Minuit_matrix), METH_VARARGS | METH_KEYWORDS, (char*)"Express the covariance as a tuple-of-tuples matrix.  Optional correlation=True\ncalculates the (normalized) correlation matrix instead, and skip_fixed=True\nremoves fixed parameters (which have zeroed entries)."},
    {NULL}
 };
 
@@ -255,7 +255,7 @@ static int minuit_Minuit_init(minuit_Minuit *self, PyObject *args, PyObject *kwd
     Py_DECREF(self->args);
     self->args = PyTuple_New(self->npar);
 
-    for (int i = 0;  i < self->npar;  i++) {
+    for (Py_ssize_t i = 0;  i < self->npar;  i++) {
       PyObject *param = PyTuple_GetItem(self->parameters, i);
       if (!PyString_Check(param)) {
 	 PyErr_SetString(PyExc_RuntimeError, "function.func_code.co_varnames must be a tuple of strings.");
@@ -1084,8 +1084,8 @@ static PyObject *minuit_Minuit_contour(minuit_Minuit *self, PyObject *args, PyOb
    char *param1, *param2;
    double sigmas;
    int npoints = 20;
-    static char *kwlist[] = {"param1", "param2", "sigmas", "npoints", NULL};
-   if (!PyArg_ParseTupleAndKeywords(args, kwds, "ssd|i", kwlist, &param1, &param2, &sigmas, &npoints)) {
+    static const char *kwlist[] = {"param1", "param2", "sigmas", "npoints", NULL};
+   if (!PyArg_ParseTupleAndKeywords(args, kwds, "ssd|i", (char**)kwlist, &param1, &param2, &sigmas, &npoints)) {
       PyErr_SetString(PyExc_TypeError, "Arguments are: param1, param2, number of sigmas, and optionally approximate number of points (20).");
       return NULL;
    }
@@ -1373,8 +1373,8 @@ static PyObject* minuit_Minuit_scan(minuit_Minuit* self, PyObject* args, PyObjec
 static PyObject* minuit_Minuit_matrix(minuit_Minuit* self, PyObject* args, PyObject* kwds) {
    PyObject *correlation = Py_False;
    PyObject *skip_fixed = Py_False;
-   static char *kwlist[] = {"correlation", "skip_fixed", NULL};
-   if (!PyArg_ParseTupleAndKeywords(args, kwds, "|OO", kwlist, &correlation, &skip_fixed)) {
+   static const char *kwlist[] = {"correlation", "skip_fixed", NULL};
+   if (!PyArg_ParseTupleAndKeywords(args, kwds, "|OO", (char**)kwlist, &correlation, &skip_fixed)) {
       PyErr_SetString(PyExc_TypeError, "Two optional arguments: correlation=True (for a correlation, rather than covariance matrix), skip_fixed=True (skips fixed parameters).");
       return NULL;
    }
@@ -1474,7 +1474,7 @@ static PyObject* minuit_Minuit_matrix(minuit_Minuit* self, PyObject* args, PyObj
 }
 
 double MyFCN::operator()(const std::vector<double>& par) const {
-    int argsize = m_npar;
+    Py_ssize_t argsize = m_npar;
     if (m_self){
         ++argsize;
     }
@@ -1573,7 +1573,7 @@ moduleinit(void) {
    Py_INCREF(&minuit_MinuitType);
     PyModule_AddObject(m, "Minuit2", (PyObject*)(&minuit_MinuitType));
 
-    PyExc_MinuitError = PyErr_NewException("minuit2.MinuitError", NULL, NULL);
+    PyExc_MinuitError = PyErr_NewException((char*)"minuit2.MinuitError", NULL, NULL);
     if (PyExc_MinuitError == NULL) return NULL;
    Py_INCREF(PyExc_MinuitError);
    PyModule_AddObject(m, "MinuitError", PyExc_MinuitError);
